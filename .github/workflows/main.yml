@@ -1,0 +1,20 @@
+name: Build LaTeX
+on:
+  - push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ondrejsika/latex-build-github-action@master
+        with:
+          filename: resume.tex
+      - uses: ondrejsika/latex-build-github-action@master
+        with:
+          filename: resume-cz.tex
+      - run: mkdir -p resume && mv *.pdf resume/
+      - uses: actions/upload-artifact@v1
+        with:
+          name: resume
+          path: resume/
+
